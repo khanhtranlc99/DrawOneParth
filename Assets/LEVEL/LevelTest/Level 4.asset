@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3bdf577b1f51e6419322b229093c361, type: 3}
+  m_Name: Level 4
+  m_EditorClassIdentifier: 
+  thubnail: {fileID: 21300000, guid: d292e5747f049d84ea704b0dc4015968, type: 3}
+  pathThubnail: {fileID: 21300000, guid: 5dbecaf10814d8d4c95ed1648a2b542f, type: 3}
+  postThubnail: {x: 0, y: 0}
+  postPathThubnail: {x: 0.09, y: 0.72}
+  postDostsVector2: []
+  oneStar: 0
+  twoStar: 0
+  threeStar: 0
+  wasPlay: 0
