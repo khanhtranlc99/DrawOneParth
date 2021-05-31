@@ -18,6 +18,7 @@ public class GameContro : GameUIMannager
     public float[] percent;
     public float numberOfStartInEndGame;
     public GameObject[] star;
+    //public bool wasEdit;
     private void Awake()
     {
         gameContro = this;
@@ -47,6 +48,18 @@ public class GameContro : GameUIMannager
         {
             _HandelBtnTutorial();
         }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            _SpawnDot();
+        }
+        if( Input.GetKeyDown(KeyCode.A))
+        {
+            _AppearGD();
+        }
+          if (Input.GetKeyDown(KeyCode.H))
+        {
+            _HideGD();
+        }
     }
     public void _CheckListDots()
     {
@@ -71,6 +84,7 @@ public class GameContro : GameUIMannager
     }
     public void _LoadLevel()
     {
+
         item.sprite = level.thubnail;
         pathOfItem.sprite = /*level.pathThubnail*/ null; //null  
         item.transform.position = new Vector2(level.postThubnail.x, level.postThubnail.y);
@@ -177,5 +191,20 @@ public class GameContro : GameUIMannager
         _HandleForGD();
 
     }
+    public void _SpawnDot()
+    {
+         var a = Instantiate(dot,new Vector2(1,1), Quaternion.identity);
+        a.spriteRenderer.sprite = spriteDot;
+        a.spriteRenderer.color = Color.green;
+    }
+    public void _HideGD()
+    {
 
+        pathOfItem.sprite = null;
+    }
+    public void _AppearGD()
+    {
+
+        pathOfItem.sprite = level.pathThubnail;
+    }
 }
