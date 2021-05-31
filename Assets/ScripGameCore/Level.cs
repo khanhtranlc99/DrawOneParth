@@ -8,13 +8,11 @@ public class Level : ScriptableObject
     public Sprite pathThubnail;
     public Vector2 postThubnail;
     public Vector2 postPathThubnail;
-    public Dost dost;
-    public Vector2[] arrayVector2;
+    //public Dost dost;
+    public Vector2[] postDostsVector2;
+    public float oneStar;
+    public float twoStar;
+    public float threeStar;
     public bool  wasPlay;
    
-}
-public class DotsAndTranform
-{
-    public Dost dost;
-    public Vector2 tranformDots;
 }

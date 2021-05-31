@@ -69,11 +69,11 @@ public class LinesDrawer : MonoBehaviour
 			}
 			else
 			{
-				//Add the line to "CantDrawOver" layer
-				//currentLine.gameObject.layer = cantDrawOverLayerIndex;
+                //Add the line to "CantDrawOver" layer
+                //currentLine.gameObject.layer = cantDrawOverLayerIndex;
 
-				//Activate Physics on the line
-				currentLine.UsePhysics(true);
+                //Activate Physics on the line
+                currentLine.UsePhysics(true);
                 GameContro.gameContro._CheckListDots();
                 Destroy(currentLine.gameObject);
                 currentLine = null;

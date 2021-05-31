@@ -14,6 +14,10 @@ public class GameContro : GameUIMannager
     public Sprite spriteDot;
     public int numberOfState;
     public Text textLevel;
+    public Dost dot;
+    public float[] percent;
+    public float numberOfStartInEndGame;
+    public GameObject[] star;
     private void Awake()
     {
         gameContro = this;
@@ -31,35 +35,39 @@ public class GameContro : GameUIMannager
     // Start is called before the first frame update
     void Start()
     {
-        //LoadLevel();
-        this.FireEvent(GameEvent.StartGame);
+        //_LoadLevel();
+        //this.FireEvent(GameEvent.StartGame);
+        _HandleForGD();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if( Input.GetKeyDown(KeyCode.T))
+        {
+            _HandelBtnTutorial();
+        }
     }
     public void _CheckListDots()
     {
-        for ( int i = 0; i < listDost.Count;i ++)
+        for (int i = 0; i < listDost.Count; i++)
         {
             number += listDost[i].wasTouch;
-            if (number == listDost.Count)
-            {
-                pathOfItem.sprite = level.pathThubnail;
-                this.FireEvent(GameEvent.EndGame);
-                _HandelHideDots();
-
-            }
-            else
-            {
-                listDost[i].wasTouch = 0;
-                listDost[i].spriteRenderer.color = Color.white;
-              
-            }
+         
+            
         }
+        var a = 100 / listDost.Count;
+        numberOfStartInEndGame = number * a;
+       if(numberOfStartInEndGame == level.oneStar || numberOfStartInEndGame == level.twoStar || numberOfStartInEndGame == level.threeStar)
+        {
+            Debug.Log("End");
+            pathOfItem.sprite = level.pathThubnail;
+         this.FireEvent(GameEvent.EndGame);
+            _HandelHideDots();
+        }
+       
         number = 0;
+        numberOfStartInEndGame = 0;
     }
     public void _LoadLevel()
     {
@@ -67,35 +75,59 @@ public class GameContro : GameUIMannager
         pathOfItem.sprite = /*level.pathThubnail*/ null; //null  
         item.transform.position = new Vector2(level.postThubnail.x, level.postThubnail.y);
         pathOfItem.transform.position = new Vector2(level.postPathThubnail.x, level.postPathThubnail.y);     
-        for ( int i = 0;  i < level.arrayVector2.Length; i ++)
+        for ( int i = 0;  i < level.postDostsVector2.Length; i ++)
         {
-            var a = Instantiate(level.dost, level.arrayVector2[i], Quaternion.identity);
+            var a = Instantiate(dot, level.postDostsVector2[i], Quaternion.identity);
+            a.wasTouch = 0;
             listDost.Add(a);
         }
+        percent = new float[listDost.Count];
+        for (int j = 0; j < listDost.Count; j++)
+        {
+            var a = 100 / listDost.Count;
+            percent[j] = (j + 1) * a;
+            Debug.Log(percent[j]);
+        }
+
     }
     public void _HandelBtnTutorial()
     {
-
         for (int i = 0; i < listDost.Count; i++)
         {
-            listDost[i].spriteRenderer.sprite = spriteDot;
-          
+            listDost[i].spriteRenderer.sprite = spriteDot;    
         }
     }
     public void _HandelHideDots()
     {
-        //var a = GameObject.FindGameObjectsWithTag("Dot");
-        //for ( int i = 0; i < a.Length; i ++)
-        //{
-        //    Destroy(a[i]);
-        //}
         for (int i = 0; i < listDost.Count; i++)
         {
             Destroy(listDost[i].gameObject);
         }
         listDost.Clear();
     }
-
+    public void _HandleStarInEndGame()
+    {
+        if ( numberOfStartInEndGame == level.oneStar)
+        {
+            star[0].SetActive(true);
+            star[1].SetActive(false);
+            star[2].SetActive(false);
+        }
+        if (numberOfStartInEndGame == level.twoStar)
+        {
+            star[0].SetActive(true);
+            star[1].SetActive(true);
+            star[2].SetActive(false);
+        }
+        if (numberOfStartInEndGame == level.threeStar)
+        {
+            star[0].SetActive(true);
+            star[1].SetActive(true);
+            star[2].SetActive(true);
+        }
+ 
+    }
+    
 
     // Update is called once per frame
 
@@ -121,6 +153,7 @@ public class GameContro : GameUIMannager
     public override void _HandleEndGame(object param)
     {
         base._HandleEndGame(param);
+        _HandleStarInEndGame();
     }
     public override void _HandleGameMode(object param)
     {
@@ -132,4 +165,17 @@ public class GameContro : GameUIMannager
         base._HandleShop(param);
 
     }
+    public void _HandleForGD()
+    {     
+         _LoadLevel();
+         numberOfState = this.numberOfState;
+         textLevel.text = "Level " + numberOfState;
+    }
+    public void _BtnGD()
+    {
+        this.FireEvent(GameEvent.InGame);
+        _HandleForGD();
+
+    }
+
 }
